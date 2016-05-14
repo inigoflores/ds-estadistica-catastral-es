@@ -1,0 +1,90 @@
+{
+  "name": "ds-estadistica-catastral-es",
+  "title": "Estadística Catastral de España",
+  "descriptions": "",
+  "licenses": [
+    {
+      "type": "odc-pddl",
+      "url": "http://opendatacommons.org/licenses/pddl/"
+    }
+  ],
+  "author": {
+    "name": "Iñigo Flores"
+  },
+  "keywords": [
+    "variables catastrales",
+    "municipios",
+    "numero de parcelas",
+    "numero de bienes inmuebles",
+    "valoración catastral municipal"
+  ],
+  "sources": [
+    {
+      "name": "Estadísticas catastrales. Dirección General del Catastro",
+      "web": "http://www.catastro.minhap.gob.es/esp/estadisticas.asp"
+    }
+  ],
+  "resources": [
+    {
+      "name": "urbano_municipios",
+      "description": "Catastro Inmobiliario Urbano: Variables catastrales por municipios y años",
+      "path": "data/urbano_municipios.csv",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "schema": {
+        "fields": [
+          {
+            "name": "municipio_id",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "year",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "ultima_valoracion",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "parcelas_num",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "parcelas_area",
+            "type": "number",
+            "description": ""
+          },
+          {
+            "name": "inmuebles_num",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "vc_construccion",
+            "type": "number",
+            "description": ""
+          },
+          {
+            "name": "vc_suelo",
+            "type": "number",
+            "description": ""
+          },
+          {
+            "name": "vc_total",
+            "type": "number",
+            "description": ""
+          }
+        ]
+      }
+    }
+  ],
+  "description": "",
+  "homepage": "",
+  "version": "0.1.7",
+  "last_updated": "2016-05-14",
+  "license": "ODC-PDDL-1.0"
+}

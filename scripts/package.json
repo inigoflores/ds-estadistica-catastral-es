@@ -1,0 +1,21 @@
+{
+  "name": "process",
+  "version": "0.0.1",
+  "description": "Descarga los años de revisión catastral",
+  "main": "process.js",
+  "dependencies": {
+    "csv-write-stream": "~2.0.0",
+    "progress": "~1.1.8",
+    "datapackage-init": "~0.2.3",
+    "semver": "~5.1.0",
+    "px": "git://github.com/inigoflores/px.js",
+    "adm-zip": "~0.4.7",
+    "minimist": "~1.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Iñigo Flores",
+  "license": "BSD-2-Clause"
+}
