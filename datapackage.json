@@ -80,11 +80,63 @@
           }
         ]
       }
+    },
+    {
+      "name": "ordenanzas_fiscales",
+      "path": "data/ordenanzas_fiscales.csv",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "bytes": 0,
+      "schema": {
+        "fields": [
+          {
+            "name": "municipio_id",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "year",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "urbana",
+            "type": "number",
+            "description": ""
+          },
+          {
+            "name": "rustica",
+            "type": "number",
+            "description": ""
+          },
+          {
+            "name": "bice_grupo_a",
+            "type": "number",
+            "description": ""
+          },
+          {
+            "name": "bice_grupo_b",
+            "type": "number",
+            "description": ""
+          },
+          {
+            "name": "bice_grupo_c",
+            "type": "number",
+            "description": ""
+          },
+          {
+            "name": "bice_grupo_d",
+            "type": "number",
+            "description": ""
+          }
+        ]
+      }
     }
   ],
   "description": "",
   "homepage": "",
-  "version": "0.1.7",
-  "last_updated": "2016-05-14",
-  "license": "ODC-PDDL-1.0"
+  "version": "0.1.21",
+  "last_updated": "2016-05-20",
+  "license": "ODC-PDDL-1.0",
+  "repository": "git://github.com/inigoflores/ds-estadistica-catastral-es.git"
 }

@@ -4,8 +4,8 @@ Estadísticas catastrales desde 2006 hasta la fecha.
  
 Actualmente únicamente incluye:
 
-    Urbano 041: Variables catastrales por municipio 
-
+    Variables catastrales por municipio (Urbano 041)
+    Ordenanzas Fiscales
 
 
 
