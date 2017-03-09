@@ -12,16 +12,11 @@ var argv = require('minimist')(process.argv.slice(2));
 var SOURCEFILE = "../archive/px.zip";
 var SOURCE_URL = "http://www.catastro.minhap.gob.es/documentos/estadisticas/px.zip";
 
-var STARTING_YEAR = 2006;
-
 var URBANO_MUNICIPIOS_DESTFILE = '../data/urbano_municipios.csv';
 var URBANO_MUNICIPIOS_HEADERS = ['municipio_id','year','ultima_valoracion', 'parcelas_num', 'parcelas_area', 'inmuebles_num', 'vc_construccion','vc_suelo','vc_total'];
 
 var ORDENANZAS_FISCALES_DESTFILE = '../data/ordenanzas_fiscales.csv';
 var ORDENANZAS_FISCALES_HEADERS = ['municipio_id','year','urbana', 'rustica', 'bice_grupo_a', 'bice_grupo_b', 'bice_grupo_c','bice_grupo_d'];
-
-
-var currentYear = new Date().getFullYear();
 
 
 // Generamos listado de provincias. Quitamos las del Pais Vasco y Navarra
@@ -30,11 +25,6 @@ var provincias = Array.apply(null, {length: 53})
   .filter(function (item) {
     return ([1,20,31,48].indexOf(item) == -1)?item:null;
   });
-
-
-
-// Inicializamos ZIP fuente
-var zip = new AdmZip(SOURCEFILE);
 
 
 
@@ -51,26 +41,44 @@ catch (e) {
 
   });
   request.end(function(){
-    processUrbanoMunicipios();
-    updateDatapackagejson();
-    processOrdenanzasFiscales();
+    processAll();
   });
   return;
 
 }
 
+
 if (stats != undefined){
   if (stats.isFile()) {
-    processUrbanoMunicipios();
-    processOrdenanzasFiscales();
-    updateDatapackagejson();
+    processAll();
   }
+}
+
+
+function processAll(){
+
+  var zip = new AdmZip(SOURCEFILE);
+
+  processUrbanoMunicipios(zip);
+  processOrdenanzasFiscales(zip);
+  updateDatapackagejson(zip);
 }
 
 /**
  * urbano_municipios - Procesa los archivos fuente y genera el csv destino
  */
-function processUrbanoMunicipios() {
+function processUrbanoMunicipios(zip) {
+
+  var zipEntries = zip.getEntries(); // an array of ZipEntry records
+
+  //Obtenemos los años disponibles a partir del documento zip
+  var years = [];
+  zipEntries.forEach(function(zipEntry) {
+    if (zipEntry.isDirectory && zipEntry.entryName.substring(0,6)=="px/est" && zipEntry.entryName.indexOf('rbano')>=0 ) {
+      years.push(zipEntry.entryName.substr(6,4)); // outputs zip entries information
+    }
+  });
+
 
 
 // Inicializamos el Progress Bar
@@ -78,15 +86,17 @@ function processUrbanoMunicipios() {
     complete: '=',
     incomplete: ' ',
     width: 20,
-    total: (currentYear - STARTING_YEAR+1) * provincias.length // numero de municipios. Quitamos header y EOF
+    total: years.length * provincias.length // numero de municipios. Quitamos header y EOF
   });
+
 
   // Inicializamos CSV de salida
   var writer = csvWriter({ headers: URBANO_MUNICIPIOS_HEADERS});
   writer.pipe(fs.createWriteStream(URBANO_MUNICIPIOS_DESTFILE));
 
+
   // Loop
-  for (year = STARTING_YEAR; year <= currentYear; year++) {
+  years.forEach(function(year) {
     provincias.forEach(function (provinciaId, index) {
       provinciaId = ("00" + provinciaId).slice(-2);
       var catastroStr = (year <= 2010) ? "catastro" : "Catastro";
@@ -102,30 +112,41 @@ function processUrbanoMunicipios() {
       bar.tick();
 
     });
-  }
+  });
 }
+
 
 
 /**
  * ordenanzas_fiscales - Procesa los archivos fuente y genera el csv destino
  */
-function processOrdenanzasFiscales() {
+function processOrdenanzasFiscales(zip) {
 
+  var zipEntries = zip.getEntries(); // an array of ZipEntry records
+
+  //Obtenemos los años disponibles a partir del documento zip
+  var years = [];
+  zipEntries.forEach(function(zipEntry) {
+    if (zipEntry.isDirectory && zipEntry.entryName.substring(0,6)=="px/est" && zipEntry.entryName.indexOf('ordenanzasfiscales')>=0 ) {
+      years.push(zipEntry.entryName.substr(6,4)); // outputs zip entries information
+    }
+  });
 
 // Inicializamos el Progress Bar
   var bar = new ProgressBar('  Processing [:bar] :percent :etas', {
     complete: '=',
     incomplete: ' ',
     width: 20,
-    total: (currentYear - STARTING_YEAR) * provincias.length // numero de municipios. Quitamos header y EOF
+    total: years.length  * provincias.length // numero de municipios. Quitamos header y EOF
   });
 
   // Inicializamos CSV de salida
   var writer = csvWriter({ headers: ORDENANZAS_FISCALES_HEADERS});
   writer.pipe(fs.createWriteStream(ORDENANZAS_FISCALES_DESTFILE));
 
+
   // Loop
-  for (year = STARTING_YEAR; year <= currentYear-1; year++) {
+  years.forEach(function(year) {
     provincias.forEach(function (provinciaId, index) {
       provinciaId = ("00" + provinciaId).slice(-2);
 
@@ -171,7 +192,7 @@ function processOrdenanzasFiscales() {
       bar.tick();
 
     });
-  }
+  });
 }
 
 

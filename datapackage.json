@@ -135,8 +135,8 @@
   ],
   "description": "",
   "homepage": "",
-  "version": "0.1.21",
-  "last_updated": "2016-05-20",
+  "version": "0.1.24",
+  "last_updated": "2017-03-09",
   "license": "ODC-PDDL-1.0",
   "repository": "git://github.com/inigoflores/ds-estadistica-catastral-es.git"
 }
