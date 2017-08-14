@@ -41,6 +41,18 @@ Ejemplo en CSV:
 | 02003        | 2006 | 2006              | 19282        | 3071.4533     | 108239        | 3577383.08728   | 5794887.57849  | 9372270.66577 | 
 | 02004        | 2006 | 1989              | 651          | 24.3229       | 664           | 3505.496023651  | 2608.846256349 | 6114.34228    | 
 
+### Incidencias en los datos
+
+
+    /px/est2008/catastro/urbano/04102.px -- Falta el código de municipio 02007 y 02008 está duplicado
+    /px/est2008/catastro/urbano/04112.px -- Falta el código de municipio 12007 y 12008 está duplicado
+    /px/est2008/catastro/urbano/04122.px -- Falta el código de municipio 22007 y 22008 está duplicado
+    /px/est2008/catastro/urbano/04132.px -- Falta el código de municipio 32007 y 32008 está duplicado
+    /px/est2008/catastro/urbano/04142.px -- Falta el código de municipio 42007 y 42008 está duplicado
+
+Lo mismo sucede para todos los demás años (hasta 2016).
+
+Se solventa sustituyendo un código de municipio por otro.
 
 ## Script
 
